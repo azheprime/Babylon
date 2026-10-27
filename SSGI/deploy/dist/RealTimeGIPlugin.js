@@ -1,0 +1,1174 @@
+var VREdit_Module;
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/testplugin.ts":
+/*!***************************!*\
+  !*** ./src/testplugin.ts ***!
+  \***************************/
+/***/ (function() {
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+let RealTimeGIPlugin = 
+// 该案例需要上传图片到资源区，压缩包自带两张，可直接上传使用
+class RealTimeGIPlugin extends VREdit.Iplugin {
+    constructor() {
+        super(...arguments);
+        this.id = "test";
+        this.button = [
+            {
+                img: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAAAXNSR0IArs4c6QAAAOlJREFUSEvNluERwiAMRmEEMpEOoUPqEHaiMAI9POFigfql3MX2Z4G+JH0BvDN+vDHPHQLGGB850BDCXRuwGphhKaVbBnnvn1qoCihhJTMtFAb2YEegEHAPpoVCQCkGM7+cc5fPu4WIrhpxzgPMZewZiGQ4Wvs2u1eO8s+IqBlHgMycRvY2H5SCzABHffoF7Ni4DISo0vwYbzaHCkTU19go58ry/g+YIzItaSmBqTRb6IylcFtIqFnj79mINP7e+vPspTJKpEfRgxjO0PQA7rWM9uCt87XbleklSmZqdk3UVmQ7H5ZmFlTWr9J/3h12uQ9QAAAAAElFTkSuQmCC",
+                enable: (entity) => {
+                    const title = "创建";
+                    const test = new xunbaoWindow(title, this);
+                },
+                disable: () => {
+                },
+                mutex: VREdit.MutexMode.self,
+                mode: VREdit.ClickMode.normal,
+                active: false,
+                tips: "This Is Global Illumination Plugin",
+            },
+        ];
+        this.extends = {};
+    }
+    init(entity) {
+    }
+    // 当选择一个左侧对象树物体的时候，把所有的des的值都改成选择物体的name
+    onEntityPick(mesh) {
+        if (mesh instanceof VREdit.IEDMesh) {
+            this.mesh = mesh;
+        }
+        else {
+            this.mesh = null;
+        }
+        ;
+    }
+    onAssetPick(asset) {
+    }
+    uninstall() {
+    }
+};
+RealTimeGIPlugin = __decorate([
+    VREdit.installPlugin
+    // 该案例需要上传图片到资源区，压缩包自带两张，可直接上传使用
+], RealTimeGIPlugin);
+class xunbaoWindow extends VREdit.Window {
+    constructor(title, Iplugin) {
+        super(title, {
+            drag: false,
+            width: 100,
+            height: "100px",
+            position: "top-right",
+            maxHeight: "547px",
+            contentHeight: "547px",
+            closeMode: "hide",
+        });
+        this.testData = [];
+        this.confirmActList = [() => {
+                const table = this.Iplugin.createTable("表格");
+                table.table[0][0] = "hahahh";
+                table.updateTable();
+            }];
+        // 创建UI
+        let json = {
+            ADDOBJS: {
+                type: "Toggle",
+                name: "ADD THIS MESH TO GI LIST",
+                value: 0
+            },
+            ALLGIONSWITCH: {
+                type: "Toggle",
+                name: "ADD ALL MESHES TO GI LIST",
+                value: 0
+            },
+            GISWITCH: {
+                type: "Toggle",
+                name: "START GI",
+                value: 0
+            },
+            GI_STRENGTH: {
+                type: "Slide",
+                name: "GI STRENGH",
+                value: 200,
+                extra: {
+                    min: 0, max: 1000, slideUnit: 10
+                }
+            },
+            QUALITY_STRENGTH: {
+                type: "Slide",
+                name: "GI QUALITY",
+                value: 0,
+                extra: {
+                    min: 0, max: 1000, slideUnit: 10
+                }
+            },
+        };
+        const allMesh = VREdit.shareBox.id2Entity;
+        this.Iplugin = Iplugin;
+        let result = this.json2Content(json);
+        // 创建数据
+        Iplugin.testData = result;
+        /**
+         *
+         * @param path 触发数据改变的位置
+         * @param val 改变的数据
+         * @param isDelete 是否是在删除数据
+         */
+        //*************************NABLA @Wanwei 2023/9/20 *******************************
+        //*************************NABLA @Wanwei 2023/9/20 *******************************
+        //*************************NABLA @Wanwei 2023/9/20 *******************************
+        //*************************NABLA @Wanwei 2023/9/20 *******************************
+        //*************************NABLA @Wanwei 2023/9/20 *******************************
+        //*************************NABLA @Wanwei 2023/9/20 *******************************
+        //*************************NABLA @Wanwei 2023/9/20 *******************************
+        var meshnumber = 0;
+        var INPUTMESHES = [];
+        var INPUTMESHESMATERIALs = [];
+        var GIS = 1;
+        var GIRAYS = 1;
+        result.onchange = (path, val, isDelete) => __awaiter(this, void 0, void 0, function* () {
+            if (path === "QUALITY_STRENGTH") {
+                GIRAYS = Math.ceil(1 + (val / 200));
+            }
+        });
+        result.onchange = (path, val, isDelete) => __awaiter(this, void 0, void 0, function* () {
+            if (path === "GI_STRENGTH") {
+                GIS = val / 200;
+            }
+        });
+        result.onchange = (path, val, isDelete) => __awaiter(this, void 0, void 0, function* () {
+            if (path === "ADDOBJS") {
+                if (Iplugin.mesh) {
+                    if (val == 1) {
+                        if (meshnumber == 0) {
+                            INPUTMESHES.push(Iplugin.mesh.sceneObj);
+                            INPUTMESHESMATERIALs.push(Iplugin.mesh.sceneObj.material);
+                            meshnumber++;
+                        }
+                        else if (Iplugin.mesh.sceneObj.id != INPUTMESHES[meshnumber - 1].id) {
+                            INPUTMESHES.push(Iplugin.mesh.sceneObj);
+                            INPUTMESHESMATERIALs.push(Iplugin.mesh.sceneObj.material);
+                            meshnumber++;
+                        }
+                        console.log('YOU CHOOSE :' + Iplugin.mesh.sceneObj.name + ',      No.' + meshnumber + '/' + INPUTMESHES.length + '\n\n\n');
+                    }
+                    else {
+                        var cullingmesh = INPUTMESHES.indexOf(Iplugin.mesh.sceneObj);
+                        if (cullingmesh !== -1) {
+                            // 删除该元素
+                            INPUTMESHES.splice(cullingmesh, 1);
+                            INPUTMESHESMATERIALs.splice(cullingmesh, 1);
+                        }
+                        // 删除留下的空
+                        INPUTMESHES = INPUTMESHES.filter(function (element) {
+                            return element !== undefined;
+                        });
+                        INPUTMESHESMATERIALs = INPUTMESHESMATERIALs.filter(function (element) {
+                            return element !== undefined;
+                        });
+                        meshnumber--;
+                        console.log('YOU DELETE :' + Iplugin.mesh.sceneObj.name + ',      ' + INPUTMESHES.length + '  LEFT\n\n\n');
+                    }
+                }
+            }
+        });
+        result.onchange = (path, val, isDelete) => __awaiter(this, void 0, void 0, function* () {
+            if (path === "ALLGIONSWITCH") {
+                if (val == 1) {
+                    INPUTMESHES.length = 0;
+                    VREdit.VeryEngine.scene.meshes.forEach(function (mesh) {
+                        INPUTMESHES.push(mesh);
+                        meshnumber++;
+                    });
+                    console.log('YOU SELECT ALL MESHES' + '\n\n\n');
+                }
+                else {
+                    INPUTMESHES.length = 0;
+                    meshnumber = 0;
+                    console.log('YOU CLAER ALL MESHES' + '\n\n\n');
+                }
+            }
+        });
+        result.onchange = (path, val, isDelete) => __awaiter(this, void 0, void 0, function* () {
+            if (path === "GISWITCH") {
+                if (val == 1) {
+                    console.log("NOW , GI ON\n\n\n");
+                    //**********************************************RAYMARCHINg1 shader***************************************************
+                    //**********************************************RAYMARCHINg1 shader***************************************************
+                    //--------------------------------------Raymarching1 vertex shader ---------------------------------------------------------
+                    const RayMarching1Vertex = `
+    precision highp float;
+    attribute vec3 position;
+    uniform mat4 worldViewProjection;
+    uniform mat4 projection;
+
+
+    varying mat4 projectionMatrix;
+    varying mat4 invertProjection;
+
+
+
+    void main(void){
+        gl_Position = worldViewProjection* vec4(position,1.);
+        projectionMatrix=projection;
+        invertProjection= inverse(projection);
+        
+    }
+`;
+                    //--------------------------------------Raymarching1 vertex shader ---------------------------------------------------------
+                    //--------------------------------------Raymarching1 fragment shader ---------------------------------------------------------
+                    const RayMarching1Fragment = `
+
+//--------------------------------------fs数据---------------------------------------------------------
+
+    precision highp float;
+    uniform sampler2D depthMap;
+    uniform vec2 cameraData;
+    uniform vec2 texturesize;
+    uniform float scenescale;
+    uniform float GIRAYS;
+
+    uniform sampler2D normalbuffer;
+    uniform sampler2D rt;
+
+    varying mat4 projectionMatrix;
+    varying mat4 invertProjection;
+//--------------------------------------fs数据---------------------------------------------------------
+
+
+
+
+
+
+//--------------------------------------转换到屏幕空间---------------------------------------------------------
+
+    vec4 ComputeScreenPos (vec4 pos){
+        vec4 o = pos*0.5;
+        o.xy = vec2(o.x,o.y*1.) + o.w;
+        o.zw = pos.zw;
+        return o;
+    }
+
+//--------------------------------------转换到屏幕空间------------------------------------------------------
+
+
+
+
+
+
+
+
+
+//--------------------------------------创造随机数------------------------------------------------------
+
+float rand(vec2 co) {
+    return fract(sin(   dot(co.xy, vec2 (12.9898, 78.233)   )   ) * 43758.5453);
+}
+
+//--------------------------------------创造随机数------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+//--------------------------------------新坐标系 s轴---------------------------------------------------------
+
+    vec3 creates (vec3 n)
+    {
+
+        vec3 a;
+
+        if(abs(n.x)>0.9)
+        {
+            a=vec3(0.,1.,0.);//中间取y轴
+        }
+
+        else
+        {
+            a=vec3(1.,0.,0.);//中间取x轴
+
+        }
+
+        vec3 s = cross(n,a);//nxa
+
+        float lengths = sqrt(dot(s, s));
+
+        s=s/lengths;
+
+        return s;
+    }
+
+//---------------------------------------新坐标系 s轴------------------------------------------------------
+
+
+
+
+
+
+
+
+//--------------------------------------新坐标系 t轴---------------------------------------------------------
+
+    vec3 createt (vec3 n,vec3 s){
+
+        vec3 t = cross(n,s);//nxs
+
+        float lengtht = sqrt(dot(t, t));
+
+        t=t/lengtht;
+
+
+        return t;
+    }
+
+//---------------------------------------新坐标系 t轴------------------------------------------------------
+
+
+
+
+
+
+
+//--------------------------------------camera原点的半球空间---------------------------------------------------------
+
+vec3 createalight_zero (vec2 coord ,float i,float j)
+{
+//coord对于不同部分，似乎是不公平的
+vec2 prerand1=coord*i;
+vec2 prerand2=coord*2.7182818*i;
+
+float r1= rand(prerand1);
+float r2= rand(prerand2);
+float r2active=abs(r2-j);//解决光线太贴近的自交问题；
+
+
+    float theta = 2.0*3.1415926*r1;
+    float fi = sqrt(r2);//注意此处适时改为r2active
+     
+    float x = fi * cos(theta);
+    float y = fi * sin(theta);
+    float z = sqrt(1.-r2active);
+
+    vec3 light = vec3(x, y, z);
+
+
+    return light;
+}
+//---------------------------------------camera原点的半球空间------------------------------------------------------
+
+
+
+
+
+
+
+//--------------------------------------半球空间映射---------------------------------------------------------
+
+vec3 createalight_rec (vec3 s,vec3 t,vec3 n,vec3 light)
+{
+
+    vec3 light_rec  =   light.x*s+light.y*t+light.z*n;
+
+        float length_rec = sqrt(dot(light_rec, light_rec));
+
+        light_rec=light_rec/length_rec;
+
+    return light_rec;
+}
+
+//---------------------------------------半球空间映射------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+//---------------------------------------fs执行函数--↓↓↓↓↓↓↓↓↓↓↓↓----------------------------------------------------
+
+
+ void main(void){
+
+
+//---------------------------------------------全局变量--------------------------------------------------
+#define marchstep scenescale/25. //越小越精细
+#define marchmaxstep scenescale/2.  //越大效果越好，计算量大
+#define startstep scenescale/30. //越大效果越好，计算量大
+
+
+#define disactiverate 0.2//光线半球Z无效率
+#define njz scenescale/40.//深度相等阈值，越小越精细，但要大于公差,感光能力  推荐0.5
+#define distanceateenratio 0.0001;//距离衰减率，越大，GI颜色越弱
+#define girate 0.0001;//越大，GI颜色越弱
+
+
+
+
+
+
+vec2 ssuv = gl_FragCoord.xy/texturesize;
+//---------------------------------------------全局变量--------------------------------------------------
+
+//---------------------------------初始化颜色---------------------------------------
+vec3 finalcolor = texture2D(rt,ssuv).rgb;
+vec4 prefinalcolor = vec4(0.,0.,0.,1.);
+
+
+//---------------------------------初始化颜色---------------------------------------
+
+
+
+
+
+//---------------------------------------------深度测试--------------------------------------------------
+float zclip = texture2D(depthMap,ssuv).x* (cameraData.y + cameraData.x) - cameraData.x;
+//---------------------------------------------深度测试--------------------------------------------------
+
+
+
+//---------------------------------------------全局变量--------------------------------------------------
+        //if(dSampler>40.0){gl_FragColor=vec4(1.,0.,0.,1.);};
+//---------------------------------------------全局变量--------------------------------------------------
+
+
+
+//---------------------------------------------屏幕空间测试--------------------------------------------------
+
+       // if(ssuv.x>0.5){gl_FragColor=vec4(1.,0.,0.,1.);};
+//---------------------------------------------屏幕空间测试--------------------------------------------------
+
+
+
+
+//---------------------------------------------法线测试--------------------------------------------------
+vec4 norm = texture2D(normalbuffer, ssuv);//归一化的结果
+gl_FragColor=norm;
+//---------------------------------------------法线测试-----------------------------------------------
+
+
+
+
+
+
+
+
+//----------------------------------------------SSGI测试-↓↓↓↓↓↓↓↓↓↓---------------------------------------------
+
+
+
+
+//---------------------------------------还原相机空间（wv）----------------------------------------------
+
+float zndc = projectionMatrix[2].z / (1.0 - projectionMatrix[3].z / zclip);//转换到NDC的Z
+
+vec4 ndc = vec4((ssuv.x - 0.5) * 2.0,
+            (ssuv.y - 0.5) * 2.0,
+            zndc,
+            1.0);
+
+
+    mat4 invProj = invertProjection;
+    vec4 clip = invProj*ndc;
+    vec3 campos = (clip/clip.w).xyz;
+
+//---------------------------------------还原相机空间（wv）----------------------------------------------
+
+
+
+
+
+//---------------------------------------光线步进（wv）↓↓↓↓↓↓↓↓↓↓↓----------------------------------------------
+
+
+
+
+
+//---------------------------------形成切面坐标系---------------------------------------
+
+  vec3 axiss=creates(norm.rgb);
+  vec3 axist=createt(norm.rgb,axiss);
+//---------------------------------形成切面坐标系---------------------------------------
+
+
+
+
+//--------------------------------------开始执行-↓↓↓↓↓↓↓↓↓↓↓↓--------------------------------------
+
+
+//-----------------------------------产生随机光线---------------------------------------
+float numhit=1.;
+
+
+ for (float i = 1.; i <= GIRAYS; i++) //控制Z向角，i个45°，max2
+ {
+
+
+
+float distance=1.;
+
+
+  vec3 otherlight_zero =  createalight_zero(ssuv,i,disactiverate);//一条
+  vec3 otherlight_rec = createalight_rec (axiss,axist,norm.rgb,otherlight_zero);
+ 
+ 
+ 
+ for (float kk = startstep; kk <= marchmaxstep; kk+=marchstep ) 
+
+{
+
+vec3 otherlightcampos=campos+otherlight_rec*kk;
+
+vec4 otherlightclippos= projectionMatrix*vec4 (otherlightcampos,1.);//得到新的gl_position
+vec4 otherlightpressuv= ComputeScreenPos(otherlightclippos);
+vec2 otherlightssuv= otherlightpressuv.xy/otherlightpressuv.w;
+
+
+
+if(!(otherlightssuv.x<1. && otherlightssuv.x>0.&& otherlightssuv.y>0. && otherlightssuv.y<1.) )
+{break;}
+
+else
+{
+
+
+
+float othersamplezclip = texture2D(depthMap,otherlightssuv).x* (cameraData.y + cameraData.x) - cameraData.x;
+float otherlightzclip=otherlightpressuv.z;
+
+
+distance+=distanceateenratio;
+
+if(abs(otherlightzclip - othersamplezclip) <=njz )
+{
+    vec4 samplecolor=texture2D(rt, otherlightssuv);
+
+//if(!(samplecolor.r< 1e-3 && samplecolor.g< 1e-3 && samplecolor.b< 1e-3)          )
+if(samplecolor.w>0.       )
+
+{    
+
+numhit+=girate;
+prefinalcolor.rgb+= samplecolor.rgb/(distance*distance);
+
+break;
+}
+}
+}
+}
+}
+
+
+//-----------------------------------产生随机光线---------------------------------------
+
+
+//----------------------------------------着色-------------------------------------------
+
+prefinalcolor.rgb/=numhit;
+
+gl_FragColor= prefinalcolor;
+
+//----------------------------------------着色-------------------------------------------
+
+
+
+
+
+
+//--------------------------------------开始执行↑↑↑↑↑↑↑↑↑↑↑↑↑---------------------------------------
+//--------------------------------------光线步进（wv）---↑↑↑↑↑↑-------------------------------------------
+//--------------------------------------SSGI测试----↑↑↑↑↑------------------------------------------
+
+
+
+    }
+//---------------------------------------fs执行函数--↑↑↑↑↑↑↑↑↑----------------------------------------------------
+
+
+
+
+`;
+                    //--------------------------------------Raymarching1 fragment shader ---------------------------------------------------------
+                    //**********************************************RAYMARCHINg1 shader***************************************************
+                    //**********************************************RAYMARCHINg1 shader***************************************************
+                    //**********************************************Filter1 shader***************************************************
+                    //**********************************************Filter1 shader***************************************************
+                    //--------------------------------------FILTER vertex shader----------------------------------------------------------
+                    const Filter1Vertex = `
+    precision highp float;
+    attribute vec3 position;
+    uniform mat4 worldViewProjection;
+
+    varying mat4 invertProjection2;
+
+
+
+    void main(void){
+        gl_Position = worldViewProjection* vec4(position,1.);
+        
+    }
+`;
+                    //--------------------------------------FILTER vertex shader----------------------------------------------------------
+                    //--------------------------------------FILTER fragment shader----------------------------------------------------------
+                    const Filter1Fragment = `
+    uniform vec2 texturesize;
+    uniform sampler2D rt3;
+    uniform sampler2D normalbuffer2;
+    uniform sampler2D depthMap2;
+    uniform vec2 cameraData2;
+//--------------------------------------定义函数 safeacos---------------------------------------------------------
+
+float safeacos (float v)
+{
+    return acos(min(max(v, 0.f), 1.f));
+}
+//---------------------------------------定义函数 safeacos------------------------------------------------------
+
+//---------------------------------------定义函数 sqrdistance------------------------------------------------------
+
+float sqrdistance (vec3 distance1,vec3 distance2) 
+{
+    vec3 distance3=distance1-distance2;
+    return dot(distance3,distance3);
+}
+
+//---------------------------------------定义函数 sqrdistance------------------------------------------------------
+
+//---------------------------------------定义函数 normlize------------------------------------------------------
+
+vec3 normlize (vec3 vector1) 
+{
+    return vector1/sqrt(dot(vector1,vector1));
+}
+
+//---------------------------------------定义函数 normlize------------------------------------------------------
+
+
+ void main(void){
+
+#define m_sigmaNormal 0.2f   //以下参数 表示相关度，增大，可以抵消差距，减小，放大差距#define m_sigmaColor 5.f
+#define PARAsigmaNormal  2.0f * m_sigmaNormal * m_sigmaNormal  //以下参数 表示相关度，增大，可以抵消差距，减小，放大差距#define m_sigmaColor 5.f
+
+#define kernelRadius 60        //去噪核心尺寸
+#define equalkernelRadius 10
+#define samplegap  kernelRadius/equalkernelRadius
+
+vec2 ssuv = gl_FragCoord.xy/texturesize;
+vec2 pixelsize = vec2(1.0) / texturesize;
+vec4 finalcolor3 = vec4(0.,0.,0.,1.);
+
+//-----------------------------------------获取法线buffer----------------------------
+//vec4 norm2 = texture2D(normalbuffer2, ssuv);//归一化的结果
+//-----------------------------------------获取法线buffer----------------------------
+
+
+float zclip = texture2D(depthMap2,ssuv).x* (cameraData2.y + cameraData2.x) - cameraData2.x;
+
+    float singleweight=0.;
+    vec2 uvnow=vec2(0.,0.);
+    vec2 offset=vec2(0.,0.);
+    float D_normal=0.;
+    float D_color=0.;
+    float total_weight =0.;
+
+            for (int m = -kernelRadius; m <= kernelRadius; m+=samplegap) {
+                for (int n =-kernelRadius; n <= kernelRadius; n+=samplegap) {
+                    uvnow=ssuv+vec2(m,n) * pixelsize;
+//指标差距越大，D越大，E越小，颜色加权越小
+float depthnow=texture2D(depthMap2,uvnow).x* (cameraData2.y + cameraData2.x) - cameraData2.x;
+float depthdelta=depthnow-zclip;
+if(depthdelta<1.){
+                    D_normal=safeacos(dot(texture2D(normalbuffer2, ssuv).rgb, texture2D(normalbuffer2, uvnow).rgb));
+                    D_normal *= D_normal;
+                    D_normal /= PARAsigmaNormal;
+                   // D_color=sqrdistance(texture2D(rt3, ssuv).rgb, texture2D(rt3, uvnow).rgb) /PARAsigmaNormal;
+                    singleweight = exp(- D_normal-D_color);
+                    total_weight+=singleweight;
+                    finalcolor3.rgb += texture2D(rt3,uvnow).rgb*singleweight;
+
+}
+
+                    }}
+
+
+
+
+
+
+                    finalcolor3/=total_weight;
+
+
+
+
+
+
+
+
+
+/*
+float D_position=0.;
+
+float D_plane = .0f;
+
+if (D_position > 0.f)
+{
+
+D_plane = dot(center_normal, normlize(postion - center_postion));
+
+}
+
+D_plane *= D_plane;
+D_plane /= (2.0f * m_sigmaPlane * m_sigmaPlane);
+
+float weight = exp(-D_plane - D_position - D_color - D_normal);
+float total_weight += weight;
+vec3 final_color += color * weight;
+
+*/
+
+
+
+
+  gl_FragColor= vec4 (finalcolor3.rgb,1.);
+
+    }
+    
+`;
+                    //--------------------------------------FILTER fragment shader----------------------------------------------------------
+                    //**********************************************Filter1 shader***************************************************
+                    //**********************************************Filter1 shader***************************************************
+                    //**********************************************Filter2 shader***************************************************
+                    //**********************************************Filter2 shader***************************************************
+                    //--------------------------------------FILTER vertex shader----------------------------------------------------------
+                    const Filter2Vertex = `
+    precision highp float;
+    attribute vec3 position;
+    uniform mat4 worldViewProjection;
+
+    varying mat4 invertProjection2;
+
+
+
+    void main(void){
+        gl_Position = worldViewProjection* vec4(position,1.);
+        
+    }
+`;
+                    //--------------------------------------FILTER vertex shader----------------------------------------------------------
+                    //--------------------------------------FILTER fragment shader----------------------------------------------------------
+                    const Filter2Fragment = `
+    uniform vec2 texturesize;
+    uniform float gis;
+
+    uniform sampler2D rt4;
+    uniform sampler2D RT_Scene1;
+    uniform sampler2D RT_ObjColor1;
+    uniform sampler2D normalbuffer2;
+    uniform sampler2D depthMap2;
+    uniform vec2 cameraData2;
+//--------------------------------------定义函数 safeacos---------------------------------------------------------
+
+float safeacos (float v)
+{
+    return acos(min(max(v, 0.f), 1.f));
+}
+//---------------------------------------定义函数 safeacos------------------------------------------------------
+
+//---------------------------------------定义函数 sqrdistance------------------------------------------------------
+
+float sqrdistance (vec3 distance1,vec3 distance2) 
+{
+    vec3 distance3=distance1-distance2;
+    return dot(distance3,distance3);
+}
+
+//---------------------------------------定义函数 sqrdistance------------------------------------------------------
+
+//---------------------------------------定义函数 normlize------------------------------------------------------
+
+vec3 normlize (vec3 vector1) 
+{
+    return vector1/sqrt(dot(vector1,vector1));
+}
+
+//---------------------------------------定义函数 normlize------------------------------------------------------
+
+
+ void main(void){
+
+#define m_sigmaNormal 0.2f   //以下参数 表示相关度，增大，可以抵消差距，减小，放大差距#define m_sigmaColor 5.f
+#define PARAsigmaNormal  2.0f * m_sigmaNormal * m_sigmaNormal  //以下参数 表示相关度，增大，可以抵消差距，减小，放大差距#define m_sigmaColor 5.f
+#define kernelRadius 5       //去噪核心尺寸
+#define equalkernelRadius 5
+#define samplegap  kernelRadius/equalkernelRadius
+
+vec2 ssuv = gl_FragCoord.xy/texturesize;
+vec2 pixelsize = vec2(1.0) / texturesize;
+vec4 finalcolor3 = vec4(0.,0.,0.,1.);
+
+//-----------------------------------------获取法线buffer----------------------------
+//vec4 norm2 = texture2D(normalbuffer2, ssuv);//归一化的结果
+//-----------------------------------------获取法线buffer----------------------------
+
+
+float zclip = texture2D(depthMap2,ssuv).x* (cameraData2.y + cameraData2.x) - cameraData2.x;
+
+    float singleweight=0.;
+    vec2 uvnow=vec2(0.,0.);
+    vec2 offset=vec2(0.,0.);
+    float D_normal=0.;
+    float D_color=0.;
+    float total_weight =0.;
+
+            for (int m = -kernelRadius; m <= kernelRadius; m+=samplegap) {
+                for (int n =-kernelRadius; n <= kernelRadius; n+=samplegap) {
+                    uvnow=ssuv+vec2(m,n) * pixelsize;
+//指标差距越大，D越大，E越小，颜色加权越小
+float depthnow=texture2D(depthMap2,uvnow).x* (cameraData2.y + cameraData2.x) - cameraData2.x;
+float depthdelta=depthnow-zclip;
+if(depthdelta<1.){
+                    D_normal=safeacos(dot(texture2D(normalbuffer2, ssuv).rgb, texture2D(normalbuffer2, uvnow).rgb));
+                    D_normal *= D_normal;
+                    D_normal /= PARAsigmaNormal;
+                   // D_color=sqrdistance(texture2D(rt3, ssuv).rgb, texture2D(rt3, uvnow).rgb) /PARAsigmaNormal;
+                    singleweight = exp(- D_normal-D_color);
+                    total_weight+=singleweight;
+                    finalcolor3.rgb += texture2D(rt4,uvnow).rgb*singleweight;
+
+}
+
+                    }}
+
+
+
+
+
+
+                    finalcolor3/=total_weight;
+
+
+
+
+
+
+
+
+
+/*
+float D_position=0.;
+
+float D_plane = .0f;
+
+if (D_position > 0.f)
+{
+
+D_plane = dot(center_normal, normlize(postion - center_postion));
+
+}
+
+D_plane *= D_plane;
+D_plane /= (2.0f * m_sigmaPlane * m_sigmaPlane);
+
+float weight = exp(-D_plane - D_position - D_color - D_normal);
+float total_weight += weight;
+vec3 final_color += color * weight;
+
+*/
+
+vec3 objcolor=texture2D(RT_ObjColor1,ssuv).rgb;
+vec3 scenecolor=texture2D(RT_Scene1,ssuv).rgb;
+
+
+  //gl_FragColor= vec4 (finalcolor3.rgb*GIgain,1.);
+gl_FragColor= vec4 (objcolor*finalcolor3.rgb*gis+scenecolor,1.);
+
+    }
+    
+`;
+                    //--------------------------------------FILTER fragment shader----------------------------------------------------------
+                    //**********************************************Filter2 shader***************************************************
+                    //**********************************************Filter2 shader***************************************************
+                    //----------------------------------------------Save The RAYMARCHINg1 shader-------------------------------------------------
+                    BABYLON.Effect.ShadersStore['RAYMARCHING1VertexShader'] = RayMarching1Vertex;
+                    BABYLON.Effect.ShadersStore['RAYMARCHING1FragmentShader'] = RayMarching1Fragment;
+                    //----------------------------------------------Save The RAYMARCHINg1 shader-------------------------------------------------
+                    //----------------------------------------------Save FILTER fragment shader-------------------------------------------------
+                    BABYLON.Effect.ShadersStore['Filter1VertexShader'] = Filter1Vertex;
+                    BABYLON.Effect.ShadersStore['Filter1FragmentShader'] = Filter1Fragment;
+                    //----------------------------------------------Save FILTER fragment shader-------------------------------------------------
+                    //----------------------------------------------Save FILTER fragment shader-------------------------------------------------
+                    BABYLON.Effect.ShadersStore['Filter2VertexShader'] = Filter2Vertex;
+                    BABYLON.Effect.ShadersStore['Filter2FragmentShader'] = Filter2Fragment;
+                    //----------------------------------------------Save FILTER fragment shader-------------------------------------------------
+                    //-----------------------------------------DefaultMaterial--------------------------------------------------
+                    var DefaultMaterial1 = new BABYLON.StandardMaterial("DefaultMaterial", Scene1);
+                    DefaultMaterial1.diffuseColor = new BABYLON.Color3(1, 1, 1);
+                    //-----------------------------------------DefaultMaterial--------------------------------------------------
+                    //--------------------------------------Get Default Cavas Size--------------------------------------------------
+                    function GetDefaultCavasSize() {
+                        let size = new BABYLON.Vector2(0, 0);
+                        size.x = engine.getRenderWidth();
+                        size.y = engine.getRenderHeight();
+                        return size;
+                    }
+                    //--------------------------------------Get Default Cavas Size--------------------------------------------------
+                    //-----------------------------------------Get Out OBJ Color----------------------------------------------
+                    function GetAllOBJColor(size, scene) {
+                        var renderTarget = new BABYLON.RenderTargetTexture("RT_Meshs OBJ Color", { width: size.x, height: size.y }, scene, true);
+                        scene.customRenderTargets.push(renderTarget);
+                        renderTarget.clearColor = new BABYLON.Color4(0, 0, 0, 0);
+                        scene.meshes.forEach(function (mesh) {
+                            var material = new BABYLON.StandardMaterial("Emissive Standard Material of " + mesh.name, scene);
+                            material.disableLighting = true;
+                            var material2 = new BABYLON.MultiMaterial("Emissive Multi Material of " + mesh.name, scene);
+                            if (!mesh.material) {
+                                material.emissiveColor = DefaultMaterial1.diffuseColor;
+                            }
+                            if (mesh.material instanceof BABYLON.PBRMaterial) {
+                                if (mesh.material.albedoTexture) {
+                                    material.emissiveTexture = mesh.material.albedoTexture;
+                                }
+                                else {
+                                    material.emissiveColor = mesh.material.albedoColor;
+                                }
+                            }
+                            else if (mesh.material instanceof BABYLON.StandardMaterial) {
+                                if (mesh.material.diffuseTexture) {
+                                    material.emissiveTexture = mesh.material.diffuseTexture;
+                                }
+                                else {
+                                    material.emissiveColor = mesh.material.diffuseColor;
+                                    material.useAlphaFromDiffuseTexture = true;
+                                }
+                            }
+                            else if (mesh.material instanceof BABYLON.MultiMaterial) {
+                                for (var j = 0; j < mesh.material.subMaterials.length; j++) {
+                                    var material3 = new BABYLON.StandardMaterial(j + "  Emissive Sub MultiMaterial of " + mesh.name, scene);
+                                    material3.disableLighting = true;
+                                    var subMaterial = mesh.material.subMaterials[j];
+                                    if (subMaterial instanceof BABYLON.PBRMaterial) {
+                                        if (subMaterial.albedoTexture) {
+                                            material3.emissiveTexture = subMaterial.albedoTexture;
+                                        }
+                                        else {
+                                            material3.emissiveColor = subMaterial.albedoColor;
+                                        }
+                                    }
+                                    else if (subMaterial instanceof BABYLON.StandardMaterial)
+                                        if (subMaterial.diffuseTexture) {
+                                            material3.emissiveTexture = subMaterial.diffuseTexture;
+                                        }
+                                        else {
+                                            material3.emissiveColor = subMaterial.diffuseColor;
+                                        }
+                                    material2.subMaterials.push(material3);
+                                }
+                            }
+                            if (material2.subMaterials.length > 0) {
+                                renderTarget.setMaterialForRendering(mesh, material2);
+                                renderTarget.renderList.push(mesh);
+                            }
+                            else {
+                                renderTarget.setMaterialForRendering(mesh, material);
+                                renderTarget.renderList.push(mesh);
+                            }
+                        });
+                        return renderTarget;
+                    }
+                    //-----------------------------------------Get Out OBJ Color----------------------------------------------
+                    //------------------------------------------Scene s RT--------------------------------------------------
+                    function SceneRT(size, scene) {
+                        var renderTarget = new BABYLON.RenderTargetTexture("RT_Scene1", { width: size.x, height: size.y }, scene, true);
+                        scene.customRenderTargets.push(renderTarget);
+                        renderTarget.clearColor = new BABYLON.Color4(0, 0, 0, 0);
+                        scene.meshes.forEach(function (mesh) {
+                            renderTarget.renderList.push(mesh);
+                            if (!mesh.material) {
+                                renderTarget.setMaterialForRendering(mesh, DefaultMaterial1);
+                            }
+                            else {
+                                renderTarget.setMaterialForRendering(mesh, mesh.material);
+                            }
+                        });
+                        return renderTarget;
+                    }
+                    //------------------------------------------Scene s RT--------------------------------------------------
+                    //-----------------------------------------The Core Factors----------------------------------------------
+                    var Scene1 = VREdit.VeryEngine.scene;
+                    var Camera1 = VREdit.VeryEngine.viewCamera.Camera;
+                    var engine = VREdit.VeryEngine.engine;
+                    //-----------------------------------------The Core Factors----------------------------------------------
+                    //-----------------------------------------------------GetSceneScale--------------------------------------------------------------------------------------
+                    function GetSceneScale(scene) {
+                        var SCENEBOX = scene.getWorldExtends();
+                        var SceneWidth = SCENEBOX.max.x - SCENEBOX.min.x; // 宽度
+                        var SceneHeight = SCENEBOX.max.y - SCENEBOX.min.y; // 高度
+                        var SceneDepth = SCENEBOX.max.z - SCENEBOX.min.z; // 深度
+                        var SceneScale = (SceneWidth + SceneHeight + SceneDepth) / 3;
+                        return SceneScale;
+                    }
+                    //-----------------------------------------------------GetSceneScale--------------------------------------------------------------------------------------
+                    //-----------------------------------------Create A RAYMARCHING Shader  Material---------------------------------------------------
+                    var RAYMARCHINGShaderMaterial1 = new BABYLON.ShaderMaterial("RAYMARCHING1", Scene1, 'RAYMARCHING1', {
+                        attributes: ['position'],
+                        uniforms: ['worldViewProjection', 'cameraData', 'rt', 'texturesize', 'normalbuffer', 'projection', 'scenescale', 'GIRAYS'],
+                        samplers: ['depthMap']
+                    });
+                    //-----------------------------------------Create A RAYMARCHING Shader  Material---------------------------------------------------
+                    //---------------------------------------------Scene Datas----------------------------------------------
+                    var CanvasSize1 = GetDefaultCavasSize();
+                    var RT_Scene1 = SceneRT(CanvasSize1, Scene1);
+                    var RT_ObjColor1 = GetAllOBJColor(CanvasSize1, Scene1);
+                    var NormalBuffer1 = Scene1.enableGeometryBufferRenderer().getGBuffer().textures[1];
+                    var CameraData1 = new BABYLON.Vector2(0, 0);
+                    var DepthBuffer1 = Scene1.enableDepthRenderer(Camera1, false, false).getDepthMap();
+                    //---------------------------------------------Scene Datas----------------------------------------------
+                    //--------------------------------------------Embedding RAYMARCHINGshader Data---------------------------------------------------
+                    RAYMARCHINGShaderMaterial1.setTexture("rt", RT_Scene1);
+                    RAYMARCHINGShaderMaterial1.setFloat("scenescale", GetSceneScale(Scene1));
+                    RAYMARCHINGShaderMaterial1.setFloat("GIRAYS", GIRAYS);
+                    RAYMARCHINGShaderMaterial1.setTexture("normalbuffer", NormalBuffer1);
+                    RAYMARCHINGShaderMaterial1.setVector2('cameraData', CameraData1);
+                    RAYMARCHINGShaderMaterial1.onBindObservable.add((ed) => {
+                        CameraData1.set(Camera1.minZ, Camera1.maxZ);
+                        RAYMARCHINGShaderMaterial1.setVector2('texturesize', CanvasSize1);
+                    });
+                    RAYMARCHINGShaderMaterial1.setTexture("depthMap", DepthBuffer1);
+                    //--------------------------------------------Embedding RAYMARCHINGshader Data---------------------------------------------------
+                    //--------------------------------------------Create FILTER fragment shaderMaterial---------------------------------------------------
+                    var FilterShaderMaterial1 = new BABYLON.ShaderMaterial("Filter1", Scene1, 'Filter1', {
+                        attributes: ['position'],
+                        uniforms: ['worldViewProjection', 'rt3', 'texturesize', 'normalbuffer2'],
+                    });
+                    //--------------------------------------------Create FILTER fragment shaderMaterial---------------------------------------------------
+                    //--------------------------------------------创建FILTER fragment shader材质---------------------------------------------------
+                    var FilterShaderMaterial2 = new BABYLON.ShaderMaterial("Filter2", Scene1, 'Filter2', {
+                        attributes: ['position'],
+                        uniforms: ['worldViewProjection', 'rt4', 'texturesize', 'normalbuffer2', 'gis'],
+                    });
+                    //--------------------------------------------创建FILTER fragment shader材质---------------------------------------------------
+                    function SETRTS(meshnow) {
+                        //-------------------------------------FILTER Color renderTarget2----------------------------------------------
+                        //var RT_FinalObj = new BABYLON.RenderTargetTexture("RT_FinalObj", {width:CanvasSize1.x,height:CanvasSize1.y}, Scene1, true);
+                        Scene1.customRenderTargets.push(RT_FinalObj);
+                        RT_FinalObj.clearColor = new BABYLON.Color4(0, 0, 0, 0);
+                        RT_FinalObj.setMaterialForRendering(meshnow, RAYMARCHINGShaderMaterial1);
+                        RT_FinalObj.renderList.push(meshnow);
+                        //-------------------------------------FILTER Color renderTarget2----------------------------------------------
+                        //-------------------------------------FILTER 颜色renderTarget2----------------------------------------------
+                        //var RT_FinalObj2 = new BABYLON.RenderTargetTexture("RT_FinalObj2", {width:CanvasSize1.x,height:CanvasSize1.y}, Scene1, true);
+                        Scene1.customRenderTargets.push(RT_FinalObj2);
+                        RT_FinalObj2.clearColor = new BABYLON.Color4(0, 0, 0, 0);
+                        RT_FinalObj2.setMaterialForRendering(meshnow, FilterShaderMaterial1);
+                        RT_FinalObj2.renderList.push(meshnow);
+                        //-------------------------------------FILTER 颜色renderTarget2----------------------------------------------
+                        //--------------------------------------------Embeding FILTER fragment shader Data---------------------------------------------------
+                        FilterShaderMaterial1.setTexture("rt3", RT_FinalObj);
+                        FilterShaderMaterial1.setTexture("normalbuffer2", NormalBuffer1);
+                        FilterShaderMaterial1.setTexture("depthMap2", DepthBuffer1);
+                        FilterShaderMaterial1.setVector2('cameraData2', CameraData1);
+                        FilterShaderMaterial1.onBindObservable.add((ed) => {
+                            FilterShaderMaterial1.setVector2('texturesize', CanvasSize1);
+                            CameraData1.set(Camera1.minZ, Camera1.maxZ);
+                        });
+                        //--------------------------------------------Embeding FILTER fragment shader Data---------------------------------------------------
+                        //--------------------------------------------设置FILTER fragment shader数据---------------------------------------------------
+                        FilterShaderMaterial2.setTexture("rt4", RT_FinalObj2);
+                        FilterShaderMaterial2.setTexture("RT_ObjColor1", RT_ObjColor1);
+                        FilterShaderMaterial2.setTexture("RT_Scene1", RT_Scene1);
+                        FilterShaderMaterial2.setFloat("gis", GIS);
+                        FilterShaderMaterial2.setTexture("normalbuffer2", NormalBuffer1);
+                        FilterShaderMaterial2.setTexture("depthMap2", DepthBuffer1);
+                        FilterShaderMaterial2.setVector2('cameraData2', CameraData1);
+                        FilterShaderMaterial2.onBindObservable.add((ed) => {
+                            FilterShaderMaterial2.setVector2('texturesize', CanvasSize1);
+                            CameraData1.set(Camera1.minZ, Camera1.maxZ);
+                        });
+                        //--------------------------------------------设置FILTER fragment shader数据---------------------------------------------------
+                    }
+                    //-----------------------------------------DefaultMaterial--------------------------------------------------
+                    var DefaultMaterial2 = new BABYLON.StandardMaterial("DefaultMaterial", Scene1);
+                    DefaultMaterial2.emissiveTexture = RT_ObjColor1;
+                    //-----------------------------------------DefaultMaterial--------------------------------------------------
+                    DefaultMaterial2.disableLighting;
+                    var RT_FinalObj = new BABYLON.RenderTargetTexture("RT_FinalObj", { width: CanvasSize1.x, height: CanvasSize1.y }, Scene1, true);
+                    var RT_FinalObj2 = new BABYLON.RenderTargetTexture("RT_FinalObj2", { width: CanvasSize1.x, height: CanvasSize1.y }, Scene1, true);
+                    var MESHNOW;
+                    for (let i = 0; i < INPUTMESHES.length; i++) {
+                        MESHNOW = INPUTMESHES[i];
+                        SETRTS(MESHNOW);
+                        MESHNOW.material = FilterShaderMaterial2;
+                    }
+                    //Iplugin.mesh.sceneObj.material=DefaultMaterial2;
+                    //Iplugin.mesh.sceneObj.material=FilterShaderMaterial1;
+                    // Iplugin.mesh.sceneObj.material=FilterShaderMaterial2;
+                    // Iplugin.mesh.sceneObj.material=RAYMARCHINGShaderMaterial1;
+                    //?projectId=CtvBIZ99P
+                }
+                else {
+                    var Scene1 = VREdit.VeryEngine.scene;
+                    //--------------------------------------OFFALLRT--------------------------------------------------
+                    function OFFALLRT() {
+                        for (let i = 0; i < Scene1.customRenderTargets.length; i++) {
+                            Scene1.customRenderTargets.pop();
+                        }
+                        Scene1.disableDepthRenderer();
+                        Scene1.disableGeometryBufferRenderer();
+                    }
+                    //--------------------------------------OFFALLRT--------------------------------------------------
+                    OFFALLRT();
+                    for (var j = 0; j < INPUTMESHES.length; j++) {
+                        INPUTMESHES[j].material = INPUTMESHESMATERIALs[j];
+                    }
+                    console.log("\n\n\nGI OFF, Now\n\n\n");
+                }
+            }
+        });
+        //*************************NABLA @Wanwei 2023/9/20 *******************************
+        //*************************NABLA @Wanwei 2023/9/20 *******************************
+        //*************************NABLA @Wanwei 2023/9/20 *******************************
+        //*************************NABLA @Wanwei 2023/9/20 *******************************
+        //*************************NABLA @Wanwei 2023/9/20 *******************************
+        //*************************NABLA @Wanwei 2023/9/20 *******************************
+        //*************************NABLA @Wanwei 2023/9/20 *******************************
+    }
+}
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = {};
+/******/ 	__webpack_modules__["./src/testplugin.ts"]();
+/******/ 	VREdit_Module = __webpack_exports__;
+/******/ 	
+/******/ })()
+;
+//# sourceMappingURL=RealTimeGIPlugin.js.map
